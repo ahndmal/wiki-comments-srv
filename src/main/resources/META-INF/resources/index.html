@@ -283,5 +283,38 @@
                 </div>
             </div>
         </div>
+
+
+        <script type="text/javascript">
+
+            let socket;
+            let connected = false;
+
+            let connect = function () {
+                if (!connected) {
+                    let name = "user1";
+                    socket = new WebSocket("ws://localhost:7001/app/comments");
+                    socket.onopen = (evt) => {
+                        connected = true;
+                        console.log(">> client connected");
+                        sendMessage(`Hello from JS client frm ${name} !`);
+                    }
+                    socket.onmessage = msg => {
+                        console.log(">> message:");
+                        console.log(msg)
+                    }
+                }
+            }
+
+            function sendMessage(msg) {
+                if (connected) {
+                    socket.send(msg);
+                }
+            }
+
+            connect();
+
+        </script>
+
     </body>
 </html>

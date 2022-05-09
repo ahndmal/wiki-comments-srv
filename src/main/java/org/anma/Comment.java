@@ -1,15 +1,18 @@
 package org.anma;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
+@Table(name = "comments")
 @Entity
-public class Comment {
+public class Comment extends PanacheEntityBase {
     private Long id;
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "parent_id")
+    private Long parentId;
     private String body;
     private String title;
 
@@ -59,5 +62,34 @@ public class Comment {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", parentId=" + parentId +
+                ", body='" + body + '\'' +
+                ", title='" + title + '\'' +
+                ", createdAt=" + createdAt +
+                ", lastUpdated=" + lastUpdated +
+                '}';
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
