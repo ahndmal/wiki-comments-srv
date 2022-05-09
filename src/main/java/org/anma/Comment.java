@@ -1,6 +1,7 @@
 package org.anma;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

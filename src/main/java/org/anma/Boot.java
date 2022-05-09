@@ -23,7 +23,7 @@ public class Boot {
 
     void onStart(@Observes StartupEvent ev) {
         LOGGER.info(" >>>>>>>>>>>>>>> The application is starting...");
-        commentRepo.findAll().stream().forEach(LOGGER::info);
+        System.out.println(commentRepo.findAll().list());
 
     }
 

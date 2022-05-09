@@ -299,9 +299,22 @@
                         console.log(">> client connected");
                         sendMessage(`Hello from JS client frm ${name} !`);
                     }
-                    socket.onmessage = msg => {
-                        console.log(">> message:");
-                        console.log(msg)
+                    socket.onmessage = evt => {
+                        // if (evt.target.binaryType === 'blob') {
+                            // let reader = new FileReader();
+                            // let buffer;
+                            // reader.readAsArrayBuffer(evt.data);
+                            // reader.addEventListener("loadend", (e) => {
+                            //     buffer = new Uint16Array(e.target.result);  // arraybuffer object
+                            // });
+                            // let data = Array.prototype.slice.call(buffer.slice());
+                            // console.log(">> data:");
+                            // console.log(data)
+
+                        // } else {
+                            console.log(">> event:");
+                            console.log(evt)
+                        // }
                     }
                 }
             }

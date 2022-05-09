@@ -1,5 +1,9 @@
 package org.anma;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.smallrye.common.annotation.NonBlocking;
+import io.smallrye.mutiny.Uni;
 import org.anma.repo.CommentRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +35,12 @@ public class CommSocket {
     }
 
     @OnOpen
+//    @Blocking
     public void onOpen(Session session) {
         sessions.put("username", session);
         broadcast(">>> hello from server!");
-        sendbynaryObject();
+//        sendbynaryObject();
+        sendAsJson(commentRepo.findById(998L));
     }
 
     @OnClose
@@ -89,6 +95,38 @@ public class CommSocket {
                 System.out.println("Unable to send message: " + res.getException());
             }
         }));
+    }
+
+    private void sendAsync() {
+        sessions.values().forEach(session -> {
+            commentRepo.findById(998L).onItem().invoke(item -> {
+                session.getAsyncRemote().sendObject(item, sendResult -> {
+                    if (sendResult.getException() != null) {
+                        log.info(sendResult.getException().getMessage());
+                    }
+                });
+            });
+        });
+    }
+
+    private void sendAsJson(Uni<Comment> comment) {
+        comment.map(c -> {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                var json = mapper.writeValueAsString(c);
+                sessions.values().forEach(s -> {
+                    s.getAsyncRemote().sendObject(json, result ->  {
+                        if (result.getException() != null) {
+                            System.out.println("Unable to send message: " + result.getException());
+                        }
+                    });
+                });
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            return c;
+        }).onItem().invoke((i) -> System.out.println(i)).subscribe();
+
     }
 
 
