@@ -17,10 +17,13 @@ public class CommentRpcServiceBase extends CommentServiceGrpc.CommentServiceImpl
 
     @Override
     public void getComment(CommentRequest request, StreamObserver<CommentResponse> responseObserver) {
+
+        var comment = commentRepo.findById(request.getId()).await().indefinitely();
+
         responseObserver.onNext(CommentResponse.newBuilder()
-                .setBody("")
-                .setId(1L)
-                .setParentId(1L)
+                .setId(comment.getId())
+                .setBody(comment.getBody())
+                .setParentId(comment.getParentId())
                 .build()
         );
         responseObserver.onCompleted();

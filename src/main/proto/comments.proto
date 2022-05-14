@@ -8,7 +8,7 @@ option java_outer_classname = "CommentProto";
 package anma;
 
 message CommentRequest {
-  int32 id = 1;
+  int64 id = 1;
 }
 
 message CommentResponse {
