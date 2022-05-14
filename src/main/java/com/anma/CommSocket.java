@@ -1,10 +1,9 @@
-package org.anma;
+package com.anma;
 
+import com.anma.repo.CommentRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.smallrye.common.annotation.NonBlocking;
 import io.smallrye.mutiny.Uni;
-import org.anma.repo.CommentRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

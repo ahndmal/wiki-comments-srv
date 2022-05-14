@@ -1,4 +1,4 @@
-package org.anma;
+package com.anma;
 
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;

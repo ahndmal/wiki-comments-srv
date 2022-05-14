@@ -1,8 +1,8 @@
-package org.anma;
+package com.anma;
 
+import com.anma.repo.CommentRepo;
 import io.quarkus.runtime.ShutdownEvent;
 import io.quarkus.runtime.StartupEvent;
-import org.anma.repo.CommentRepo;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;

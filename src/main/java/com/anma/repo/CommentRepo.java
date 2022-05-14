@@ -1,8 +1,8 @@
-package org.anma.repo;
+package com.anma.repo;
 
+import com.anma.Comment;
 import io.quarkus.hibernate.reactive.panache.PanacheRepository;
 import io.smallrye.mutiny.Uni;
-import org.anma.Comment;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
