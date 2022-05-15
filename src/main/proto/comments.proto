@@ -14,7 +14,7 @@ message CommentRequest {
 message CommentResponse {
   int64 id = 1;
   string body = 2;
-  int64 parentId = 3;
+  int64 parent_id = 3;
 }
 
 service CommentService {
