@@ -19,7 +19,6 @@ import java.util.Optional;
 
 @GrpcService
 public class CommentRpcService implements CommentService {
-
     private final Logger LOG = LoggerFactory.getLogger(CommentRpcService.class);
     @Inject
     CommentRepo commentRepo;
@@ -27,7 +26,7 @@ public class CommentRpcService implements CommentService {
     @Override
     public Uni<CommentResponse> getComment(CommentRequest request) {
 
-        System.out.println(request.getId());
+        System.out.format(">> getComment :: ID is %d", request.getId());
 
         var comment = commentRepo.findById(request.getId());
         LOG.info(">>> getting comment");

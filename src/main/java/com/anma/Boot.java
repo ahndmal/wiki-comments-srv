@@ -13,21 +13,21 @@ import javax.inject.Inject;
 public class Boot {
 
     private static final Logger LOGGER = Logger.getLogger("ListenerBean");
+
     @Inject
     CommentRepo commentRepo;
-
 
     public Boot(CommentRepo commentRepo) {
         this.commentRepo = commentRepo;
     }
 
-    void onStart(@Observes StartupEvent ev) {
+    void onStart(@Observes StartupEvent event) {
         LOGGER.info(" >>>>>>>>>>>>>>> The application is starting...");
-        System.out.println(commentRepo.findAll().list());
+        commentRepo.findAll().count().subscribe().with(System.out::println);
 
     }
 
-    void onStop(@Observes ShutdownEvent ev) {
+    void onStop(@Observes ShutdownEvent event) {
         LOGGER.info("The application is stopping...");
     }
 }

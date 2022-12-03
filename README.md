@@ -1,16 +1,12 @@
 # wiki-comments-srv Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+### GRPC:
+https://github.com/fullstorydev/grpcurl/releases/download/v1.8.7/grpcurl_1.8.7_linux_x86_64.tar.gz
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
-
-GRPC:
 ```grpc
+#grpcurl -import-path . -proto src/main/proto/comments.proto localhost:9000 list
 grpcurl -plaintext localhost:9000 list
-
-grpcurl -plaintext localhost:9000 anma.CommentService/GetComment
-
-grpcurl -import-path . -proto src/main/proto/comments.proto localhost:9000 list
+grpcurl -plaintext -d '{"id": 150}' localhost:9000 anma.CommentService/GetComment
 ```
 
 
