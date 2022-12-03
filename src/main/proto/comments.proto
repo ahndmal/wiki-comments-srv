@@ -11,14 +11,21 @@ message CommentRequest {
   int64 id = 1;
 }
 
+message CommentByBody {
+  string bodyPart = 1;
+}
+
 message CommentResponse {
   int64 id = 1;
   string body = 2;
-  int64 parent_id = 3;
+  string title = 3;
+  int64 user_id = 4;
+  int64 parent_id = 5;
 }
 
 service CommentService {
   rpc GetComment (CommentRequest) returns (CommentResponse) {}
   rpc StreamComments(CommentRequest) returns (stream CommentResponse) {}
+  rpc GetCommentsByBody (CommentByBody) returns (stream CommentResponse) {}
 }
 
